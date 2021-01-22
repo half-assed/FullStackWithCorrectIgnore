@@ -7,30 +7,46 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const Statistics = ({g,n,b}) => {
-    if (g == 0 && n == 0 && b == 0)
+  const Statistics = (props) => {
+    if (false)
       return <p>No feedback given</p>
     return (
+      <p>{props.prompt} {props.value}</p>
+    )
+  }
+  const Button = ({method, prompt}) => {
+    return (
+      <button onClick={method}>{prompt}</button>
+    )
+  }
+  if (good == 0 && neutral==0 && bad==0) {
+    return (
       <div>
-        <p>good {g}</p>
-        <p>neutral {n}</p>
-        <p>bad {b}</p>
-        <p>all {g + b + n}</p>
-        <p>average {(g - n)/(g+b)}</p>
-        <p>positive {g/(g+n+b)}</p>
+      <Button value={good} method={() => setGood(good + 1)} prompt="good"/>
+      <Button value={neutral} method={() => setNeutral(neutral + 1)} prompt="neutral"/>
+      <Button value={bad} method={() => setBad(bad + 1)} prompt="bad"/>
+      <h2>statistics</h2>
+      <p>No feedback given</p>
+      </div>
+
+    )
+  }
+  else {
+    return (
+      <div>
+        <Button value={good} method={() => setGood(good + 1)} prompt="good"/>
+        <Button value={neutral} method={() => setNeutral(neutral + 1)} prompt="neutral"/>
+        <Button value={bad} method={() => setBad(bad + 1)} prompt="bad"/>
+        <h2>statistics</h2>
+        <Statistics prompt="good" value={good}/>
+        <Statistics prompt="neutral" value={neutral}/>
+        <Statistics prompt="bad" value={bad}/>
+        <Statistics prompt="all" value={good+neutral+bad}/>
+        <Statistics prompt="average" value={(good-bad)/(good+bad)}/>
+        <Statistics prompt="positive" value={good/(good+neutral+bad)}/>
       </div>
     )
   }
-
-  return (
-    <div>
-      <button onClick={() => setGood(good + 1)}>good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
-      <h2>statistics</h2>
-      <Statistics g={good} n={neutral} b={bad} />
-    </div>
-  )
 }
 
 ReactDOM.render(<App />, 
