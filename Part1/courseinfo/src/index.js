@@ -27,9 +27,9 @@ const App = () => {
     console.log("Contents props: ", props)
     return (
       <div>
-        <p>{props.props[0].name} {props.props[0].exercises}</p>
-        <p>{props.props[1].name} {props.props[1].exercises}</p>
-        <p>{props.props[2].name} {props.props[2].exercises}</p>
+        <p>{props.parts[0].name} {props.parts[0].exercises}</p>
+        <p>{props.parts[1].name} {props.parts[1].exercises}</p>
+        <p>{props.parts[2].name} {props.parts[2].exercises}</p>
       </div>
     )
   }
@@ -43,7 +43,7 @@ const App = () => {
   return (
     <div>
       <Header header={course}/>
-      <Content props={parts}/>
+      <Content parts={parts}/>
       <Total props={parts}/>
     </div>
   )
