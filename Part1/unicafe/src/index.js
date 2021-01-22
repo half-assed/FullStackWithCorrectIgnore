@@ -7,43 +7,45 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const Statistics = (props) => {
-    if (false)
-      return <p>No feedback given</p>
+  const Statistics = ({text, value}) => {
     return (
-      <p>{props.prompt} {props.value}</p>
+      <tr><td>{text}</td><td>{value}</td></tr>
     )
   }
-  const Button = ({method, prompt}) => {
+  const Button = ({method, text}) => {
     return (
-      <button onClick={method}>{prompt}</button>
+      <button onClick={method}>{text}</button>
     )
   }
-  if (good == 0 && neutral==0 && bad==0) {
+  if (good === 0 && neutral===0 && bad===0) {
     return (
       <div>
-      <Button value={good} method={() => setGood(good + 1)} prompt="good"/>
-      <Button value={neutral} method={() => setNeutral(neutral + 1)} prompt="neutral"/>
-      <Button value={bad} method={() => setBad(bad + 1)} prompt="bad"/>
-      <h2>statistics</h2>
-      <p>No feedback given</p>
+        <Button value={good} method={() => setGood(good + 1)} text="good"/>
+        <Button value={neutral} method={() => setNeutral(neutral + 1)} text="neutral"/>
+        <Button value={bad} method={() => setBad(bad + 1)} text="bad"/>
+        <h2>statistics</h2>
+        <p>No feedback given</p>
       </div>
-
     )
   }
   else {
     return (
       <div>
-        <Button value={good} method={() => setGood(good + 1)} prompt="good"/>
-        <Button value={neutral} method={() => setNeutral(neutral + 1)} prompt="neutral"/>
-        <Button value={bad} method={() => setBad(bad + 1)} prompt="bad"/>
+        <Button value={good} method={() => setGood(good + 1)} text="good"/>
+        <Button value={neutral} method={() => setNeutral(neutral + 1)} text="neutral"/>
+        <Button value={bad} method={() => setBad(bad + 1)} text="bad"/>
         <h2>statistics</h2>
-        <Statistics prompt="good" value={good}/>
-        <Statistics prompt="neutral" value={neutral}/>
-        <Statistics prompt="bad" value={bad}/>
-        <Statistics prompt="all" value={good+neutral+bad}/>
-        <Statistics prompt="average" value={(good-bad)/(good+bad)}/>
-        <Statistics prompt="positive" value={good/(good+neutral+bad)}/>
+        <table>
+        <tbody>
+          <Statistics text="good" value={good}/>
+          <Statistics text="neutral" value={neutral}/>
+          <Statistics text="bad" value={bad}/>
+          <Statistics text="all" value={good+neutral+bad}/>
+          <Statistics text="average" value={(good-bad)/(good+bad)}/>
+          <Statistics text="positive" value={good/(good+neutral+bad)}/>        
+        </tbody>
+      </table>
+
       </div>
     )
   }
