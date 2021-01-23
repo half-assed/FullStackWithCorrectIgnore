@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length-1).fill(0))
 
   const random = () => {
       // return Math.floor(Math.random * anecdotes.length)
@@ -14,6 +15,14 @@ const App = (props) => {
       // so Math.random requires () to be called, probably because it is a named method and not written in React
       return Math.floor(Math.random() * anecdotes.length)
   }
+  const vote = () => {
+    // you should not use props here because vote, being a helper method of App, has direct access to the selected variable
+    const array = [...votes]
+    console.log(array)
+    array[selected] = array[selected] + 1
+    console.log(array)
+    return array
+  }
 
   const Button = ({method, text}) => {
     return (
@@ -24,8 +33,12 @@ const App = (props) => {
   return (
     <div>
       {console.log(selected)}
+      {console.log(votes)}
       <p>{props.anecdotes[selected]}</p>
-      <p><Button method={() => setSelected(random)} text="random"/></p>
+      <p>
+        <Button text="vote"   method={() => setVotes(vote(selected))} />
+        <Button text="random" method={() => setSelected(random)}      />
+      </p>
     </div>
   )
 }
