@@ -50,7 +50,7 @@ const Part = (props) => {
 const Total = (props) => {
   console.log("Total props: ", props)
   return (
-    <p>Total Exercises: {props.props[0].exercises + props.props[1].exercises + props.props[2].exercises}</p>
+    <p>Total Exercises: {props.props.reduce((sum, element) => sum += element.exercises, 0)}</p>
   )
 }
 const Course = (props) => {
