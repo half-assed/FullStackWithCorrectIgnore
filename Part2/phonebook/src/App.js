@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '01234567890', key: '01234567890'}
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ filter, setFilter ] = useState('')
 
   const clickHandler = (event) => {
     event.preventDefault()
@@ -15,7 +19,7 @@ const App = () => {
       console.log("Fields cannot be left empty.")
     }
     else if ( index !== -1) {
-      alert(`${newNumber} is the number of ${persons[index].name}`)
+      alert(`Two contacts can't share the number: ${newNumber} is already the number of ${persons[index].name}`)
     }
     else {
       setPersons(persons.concat({name: newName, number: newNumber, key: newNumber}))
@@ -24,20 +28,19 @@ const App = () => {
     }
   }
 
-  const onChangeHandlerName = (event) => {
-    return (
-      setNewName(event.target.value)
-    )
-  }
-  const onChangeHandlerNumber = (event) => {
-    return (
-      setNewNumber(event.target.value)
-    )
-  }
+  const onChangeHandlerName = (event) => (setNewName(event.target.value))
+  const onChangeHandlerNumber = (event) => (setNewNumber(event.target.value))
+  const onChangeHandlerFilter = (event) => (setFilter(event.target.value))
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <form>
+        <div>
+          filter names containing: <input value={filter} onChange={onChangeHandlerFilter}/>
+        </div>
+      </form>
+      <h3>Add new contact</h3>
       <form>
         <div>name: <input value={newName} onChange={onChangeHandlerName}/></div>
         <div>number: <input value={newNumber} onChange={onChangeHandlerNumber}/></div>
@@ -45,7 +48,7 @@ const App = () => {
       </form>
       
       <h2>Numbers</h2>
-      <div>{persons.map((element, key) => <p key={element.number}>{element.name} - {element.number}</p>)}</div>
+      <div>{persons.filter(element => element.name.toLowerCase().includes(filter.toLowerCase())).map((element, key) => <p key={element.number}>{element.name} - {element.number}</p>)}</div>
     </div>
   )
 }
