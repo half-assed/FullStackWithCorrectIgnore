@@ -2,38 +2,39 @@ import React, { useState } from 'react'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', key: 'Arto Hellas'}
   ]) 
   const [ newName, setNewName ] = useState('')
 
   const clickHandler = (event) => {
     event.preventDefault()
-    console.log("Event: ", event)
-    if (event.target.value !== "") {
-      updatePersons(event.target.value)
-      setNewName('')
-      console.log(persons)
-    }  
-    else {
-      console.log("name field was empty, no person added")
+    const name = event.target.value
+
+    if (name === "") {
+      console.log("The name field is empty.")
     }
-    
+    else if (persons.map(element => element.key).indexOf(name) !== -1) {
+      alert(`${name} is already added to phonebook`)
+    }
+    else {
+      console.log(name)
+      setPersons(persons.concat({name: name, key: name}))
+      setNewName('')
+    }
   }
-  const updatePersons = (props) => {
-    console.log("updatePersons props: ", props)
-    setPersons(persons.concat({name: props}))
+
+  const onChangeHandler = (event) => {
+    return (
+      setNewName(event.target.value)
+    )
   }
-  const updateField = (event) => { // the props of the event handlers always contains the event. 
-    setNewName(event.target.value)
-  }
-  // clickHandler's event is currently refering the button, so the value is not ready
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
         <div>
-          name: <input value={newName} onChange={updateField}/>
+          name: <input value={newName} onChange={onChangeHandler}/>
         </div>
         <div>
 
@@ -42,7 +43,7 @@ const App = () => {
       </form>
       
       <h2>Numbers</h2>
-      <div>{persons.map((element, key) => <p key={element.name}>{element.name}</p>)}</div>
+      <div>{persons.map((element, key) => <p key={key}>{element.name}</p>)}</div>
     </div>
   )
 }
