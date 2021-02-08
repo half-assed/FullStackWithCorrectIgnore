@@ -18,6 +18,11 @@ function App() {
     setMatches(states.filter(element => element.name.toLowerCase().includes(event.target.value.toLowerCase()))
       .map((element, key) => <p key={element.alpha3code}>{element.name}</p>))
   }
+  const onClickHandler = (event) => {
+    console.log(event)
+    setMatches(states.filter(element => element.name.toLowerCase().includes(event.toLowerCase()))
+    .map((element, key) => <p key={element.alpha3code}>{element.name}</p>))
+  }
 
   const Display = (props) => {
     console.log("Matches", matches)
@@ -41,11 +46,14 @@ function App() {
         </div>
       )
     }
-    if (matches.length > 10) {
+    else if (matches.length > 10) {
       console.log("More than 10 matches")
       return <p>Too many matches, continue typing</p>
     }
-    return props.props
+    else {
+      return matches.map(element => <div>{element.props.children} <button onClick={() => onClickHandler(element.props.children)}>show</button></div>)
+    }
+    
   }
 
   
