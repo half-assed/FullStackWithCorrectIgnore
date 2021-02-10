@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 const PersonForm = (props) => {
     // console.log("PersonForm props: ", props)
@@ -13,9 +14,16 @@ const PersonForm = (props) => {
         alert(`Two contacts can't share the number: ${props.newNumber} is already the number of ${props.persons[index].name}`)
       }
       else {
-        props.setP(props.persons.concat({name: props.newName, number: props.newNumber, key: props.newNumber}))
-        props.setNa('')
-        props.setNu('')
+        axios.post(
+          `http://localhost:3001/persons`,  // persons is an element(/container) in the db.json file, 3001 is the port defined for json-server when installed with: npx json-server --port 3001 --watch db.json
+          {name: props.newName, number: props.newNumber, key: props.newNumber})
+          .then(response => {
+          props.setP(props.persons.map(person => person.key !== props.newNumber ? person : response.data))
+          props.setNa('')
+          props.setNu('')
+        })
+
+        
       }
     }
     const onChangeHandlerName = (event) => (props.setNa(event.target.value))
