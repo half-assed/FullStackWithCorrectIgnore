@@ -5,10 +5,10 @@ import Filter from './components/Filter.js'
 import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([])
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber ] = useState('')
-  const [ filter, setFilter ] = useState('')
+  const [persons, setPersons]     = useState([])
+  const [newName, setNewName]     = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [filter, setFilter]       = useState('')
 
   useEffect(() => {
     // console.log("Effect triggered")

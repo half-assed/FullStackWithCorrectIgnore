@@ -6,17 +6,25 @@ const PersonForm = (props) => {
     const clickHandler = (event) => {
       event.preventDefault()
   
-      const index = props.persons.map(element => element.key).indexOf(props.newNumber)
+      console.log("Person form props.persons: ", props.persons)
+      const index = props.persons.map(element => element.name).indexOf(props.newName)
+      console.log("Index is:", index)
       if (props.newName === "" || props.newNumber==='') {
-        console.log("Fields cannot be left empty.")
+        alert("Fields cannot be left empty.")
       }
       else if ( index !== -1) {
-        alert(`Two contacts can't share the number: ${props.newNumber} is already the number of ${props.persons[index].name}`)
+        if (window.confirm(`${props.persons[index].name} is already added to phonebook, replace the old number with a new one?`)) {
+          const person = props.persons[index]
+          console.log("props.persons[index] (person):", props.persons[index])
+          server.update([person.id, person.name, props.newNumber])
+            .then(data => props.setP(props.persons.map(person => person.name !== props.newName ? person : data)))
+          props.setNa('')
+          props.setNu('')
+        }
       }
       else {
         console.log("server", server)
-        server.create([props.newName, props.newNumber])
-            .then(data => props.setP(props.persons.concat(data)))
+        server.create([props.newName, props.newNumber]).then(data => props.setP(props.persons.concat(data)))
         props.setNa('')
         props.setNu('')
       }
