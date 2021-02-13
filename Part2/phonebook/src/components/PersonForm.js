@@ -20,7 +20,8 @@ const PersonForm = (props) => {
           server.update([person.id, person.name, props.newNumber])
             .then(data => {
               props.setP(props.persons.map(person => person.name !== props.newName ? person : data));
-              props.setMessage(`${data.name} number has been updated`)
+             props.setMessage(`${data.name} number has been updated`);
+             setTimeout(() => props.setMessage(null), 5000)
             })
           props.setNa('')
           props.setNu('')
@@ -31,7 +32,8 @@ const PersonForm = (props) => {
         server.create([props.newName, props.newNumber])
           .then(data => {
             props.setP(props.persons.concat(data));
-            props.setMessage(`${data.name} has been added`)
+            props.setMessage(`${data.name} has been added`);
+            setTimeout(() => props.setMessage(null), 5000);
           })
         props.setNa('')
         props.setNu('')
