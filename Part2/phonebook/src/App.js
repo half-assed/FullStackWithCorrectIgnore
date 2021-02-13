@@ -9,6 +9,7 @@ const App = () => {
   const [newName, setNewName]     = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter]       = useState('')
+  const [notificationMessage, setNotificationMessage]     = useState(null)
 
   useEffect(() => {
     // console.log("Effect triggered")
@@ -24,7 +25,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter filter={filter} setter={setFilter}/>
       <h3>Add new contact</h3>
-      <PersonForm persons={persons} newName={newName} newNumber={newNumber} setP={setPersons} setNa={setNewName} setNu={setNewNumber}/>      
+      <PersonForm persons={persons} newName={newName} newNumber={newNumber} setP={setPersons} setNa={setNewName} setNu={setNewNumber} message={notificationMessage} setMessage={setNotificationMessage}/>      
       <h2>Numbers</h2>
       <Contacts persons={persons} myFilter={filter} setPersons={setPersons}/>
     </div>
