@@ -9,7 +9,7 @@ const App = () => {
   const [newName, setNewName]     = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter]       = useState('')
-  const [notificationMessage, setNotificationMessage]     = useState(null)
+  const [notificationMessage, setNotificationMessage]     = useState([null, null])
 
   useEffect(() => {
     // console.log("Effect triggered")
