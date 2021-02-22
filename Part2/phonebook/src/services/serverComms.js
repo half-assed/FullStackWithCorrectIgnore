@@ -18,4 +18,4 @@ const update = (props) => {
         .then(response => response.data)
 }
 
-export default {getAll, create, update}
+export default { getAll, create, update }

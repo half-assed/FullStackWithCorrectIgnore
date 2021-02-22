@@ -10,7 +10,7 @@ const Contacts = (props) => {
     function deleter (element) {
         console.log("Deleter props: ", element)
         if (window.confirm(`Delete ${element.name}?`)) {
-            axios.delete(`http://localhost:3001/persons/${element.id}`)
+            axios.delete(`/persons/${element.id}`)
         }
         props.setPersons(props.persons.filter(person => {if (person.id !== element.id) return person}))
     } 

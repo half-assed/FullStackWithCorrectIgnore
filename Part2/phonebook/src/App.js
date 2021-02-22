@@ -4,6 +4,10 @@ import PersonForm from './components/PersonForm'
 import Filter from './components/Filter.js'
 import axios from 'axios'
 
+/*
+  In order for this version to work, you need to remember to run the json server by opening a second terminal cd/Gits/FullStackWithCorrectIgnore/Part2/phonebook and execute: npm server run
+*/
+
 const App = () => {
   const [persons, setPersons]     = useState([])
   const [newName, setNewName]     = useState('')
@@ -13,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     // console.log("Effect triggered")
-    const promise = axios.get('http://localhost:3001/persons')
+    const promise = axios.get('/api/persons')
     console.log("Promise", promise)
     promise.then((response) => {
       return setPersons(response.data)
