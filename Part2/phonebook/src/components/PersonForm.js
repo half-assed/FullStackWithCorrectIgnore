@@ -34,9 +34,15 @@ const PersonForm = (props) => {
         console.log("server", server)
         server.create([props.newName, props.newNumber])
           .then(data => {
+            console.log(data)
             props.setP(props.persons.concat(data));
             props.setMessage([`${data.name} has been added`, true]);
             setTimeout(() => props.setMessage(null), 5000);
+            console.log("Creation successful")
+          }).catch(error => {
+              props.setMessage([`${error.response.data.error}`, false]);
+              setTimeout(() => props.setMessage(null), 10000);
+              console.log("Personform error:", error.response.data.error)
           })
         props.setNa('')
         props.setNu('')
